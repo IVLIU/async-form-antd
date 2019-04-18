@@ -1,0 +1,51 @@
+{
+  "name": "@ivliu/async-form-antd",
+  "version": "0.0.8",
+  "main": "src/AsyncForm.tsx",
+  "author": {
+    "name": "IVLIU"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:IVLIU/async-form-antd.git"
+  },
+  "description": "定义formSchema表单解构，根据此来渲染表单，目前主要是满足公司需求，希望各位大佬可以不吝拓展",
+  "dependencies": {
+    "@types/jest": "24.0.11",
+    "@types/lodash": "^4.14.123",
+    "@types/node": "11.13.0",
+    "@types/react": "16.8.10",
+    "@types/react-dom": "16.8.3",
+    "antd": "^3.16.1",
+    "babel-plugin-import": "^1.11.0",
+    "classnames": "^2.2.6",
+    "customize-cra": "^0.2.12",
+    "lodash": "^4.17.11",
+    "react": "^16.8.6",
+    "react-app-rewired": "^2.1.1",
+    "react-dom": "^16.8.6",
+    "react-scripts": "2.1.8",
+    "typescript": "3.4.1"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@types/classnames": "^2.2.7",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0"
+  },
+  "license": "MIT"
+}

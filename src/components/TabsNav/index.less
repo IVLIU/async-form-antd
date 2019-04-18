@@ -1,0 +1,31 @@
+.tn-wrapper {
+  display: flex;
+  height: 32px;
+  line-height: 32px;
+  padding-right: 10px;
+  background-color: #f3f3f3;
+  color: #999;
+  .tn-item {
+    position: relative;
+    width: 60px;
+    text-align: center;
+    color: #666;
+    .tn-active__bar {
+      position: absolute;
+      bottom: 0;
+      width: 60px;
+      height: 3px;
+      background-color: #18a2ff;
+    }
+  }
+  .tn-item--active {
+    background-color: #f3f5f9;
+    color: #18a2ff;
+  }
+  .tn-operation {
+    margin-left: auto;
+  }
+}
+.tn-main {
+  padding: 5px;
+}
