@@ -238,7 +238,7 @@ const AsyncForm: FC<IProps> = (props) => {
                           return (
                             <TabPane key={`${idxOfTab}`} tab={currentTab}>
                               {renderOfArrayType[idxOfTab] ? renderOfArrayType[idxOfTab].map((_, idxOfRenderArrayType) => {
-                                const { by, $ref } = f;
+                                const { by, ref: $ref } = f;
                                 let byVal: string = '';
                                 let $refVal: string = '';
                                 if(typeof $ref === "string") {
@@ -279,7 +279,7 @@ const AsyncForm: FC<IProps> = (props) => {
                   ) : (
                     <>
                       {renderOfArrayType[0] && renderOfArrayType[0].map((_, idxOfRenderArrayType) => {
-                        const { by, $ref } = f;
+                        const { by, ref: $ref } = f;
                         let byVal: string = '';
                         let $refVal: string = '';
                         if(typeof $ref === "string") {

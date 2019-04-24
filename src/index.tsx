@@ -92,7 +92,7 @@ const formSchema = {
       "type": "array",
       "tabs": ["菜单1", "菜单2"],
       "by": "style",
-      "$ref": {
+      "ref": {
         "1": "bigPic",
         "0": "smallPic",
       }
@@ -101,7 +101,7 @@ const formSchema = {
 }
 
 render(
-  <AsyncForm formSchema={{}} callback={(val: any) => console.log('callback', val)} />, 
+  <AsyncForm formSchema={formSchema} callback={(val: any) => console.log('callback', val)} />, 
   document.querySelector('#root')
 );
 
