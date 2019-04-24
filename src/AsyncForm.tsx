@@ -10,7 +10,7 @@ const { TabPane } = Tabs;
 
 const AsyncForm: FC<IProps> = (props) => {
   // props
-  const { formSchema, form, callback } = props;
+  const { formSchema, formData, form, callback } = props;
   const { fields } = formSchema;
   const { getFieldDecorator, validateFields, getFieldValue } = form;
   // state
@@ -174,14 +174,19 @@ const AsyncForm: FC<IProps> = (props) => {
   const handleFormItemOptionFormat: (field: IField) => IFormItemOption = (f) => {
     const { field, defaultValue } = f;
     const { required } = formSchema;
+    let initialValue: undefined | string = undefined;
     const baseOpt: IFormItemOption = {
       rules: [],
     };
     if(defaultValue) {
-      baseOpt.initialValue = defaultValue;
+      initialValue = defaultValue;
     }
+    if(formData[field]) {
+      initialValue = formData[field];
+    }
+    baseOpt.initialValue = initialValue;
     if(required && required.indexOf(field) !== -1) {
-      // baseOpt.rules.push({required: true});
+      baseOpt.rules.push({required: true});
     }
     return baseOpt;
   }

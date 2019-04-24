@@ -4,104 +4,148 @@ import './index.css';
 import AsyncForm from './AsyncForm';
 import * as serviceWorker from './serviceWorker';
 
+// const formSchema = {
+//   "title": "单列医生",
+//   "description": "单列医生的表单结构设计",
+//   "required": [
+//     "title",
+//     "link"
+//   ],
+//   "smallPic": [
+//     {
+//       "field": "doctorIds",
+//       "tips": "请在此处添加医生ID"
+//     },
+//   	{
+//       "field": "price",
+//       "widget": "TextArea",
+//       "tips": "请在此处添加义诊价描述"
+//     },
+//     {
+//       "field": "isShowPrice",
+//       "widget": "Radio",
+//       "enum": [
+//         ["1", "是否显示价格"],
+//       ],
+//       "defaultValue": "0",
+//     }
+//   ],
+//   "bigPic": [
+//     {
+//       "field": "doctorIds",
+//       "tips": "请在此处添加医生ID"
+//     },
+//     {
+//       "field": "label",
+//       "tips": "请在此处添加标签文案，用逗号隔开。例如xx,xx,xx"
+//     },
+//     {
+//       "field": "consult",
+//       "tips": "请在此处添加资讯文案"
+//     },
+//     {
+//       "field": "comment",
+//       "tips": "请在此处添加评价文案"
+//     },
+//     {
+//       "field": "price",
+//       "widget": "TextArea",
+//       "tips": "请在此处添加义诊价描述"
+//     },
+//     {
+//       "field": "isShowPrice",
+//       "widget": "Radio",
+//       "enum": [
+//         ["1", "是否显示价格"],
+//       ],
+//       "defaultValue": "0",
+//     }
+//   ],
+//   "fields": [
+//     {
+//       "field": "title",
+//       "name": "标题",
+//       "max": 10,
+//     },
+//     {
+//       "field": "style",
+//       "name": "模块样式",
+//       "widget": "Radio",
+//       "enum": [
+//         ["1", "大图"],
+//         ["0", "小图"]
+//       ],
+//       "defaultValue": "0",
+//     },
+//     {
+//       "field": "link",
+//       "name": "跳转页面",
+//       "widget": "Select",
+//       "enum": [
+//         ["https://www.baidu.com", "医生主页"],
+//         ["https://www.sina.com", "服务中间页"]
+//       ],
+//       "tips": "请选择跳转到的页面"
+//     },
+//     {
+//       "field": "doctors",
+//       "type": "array",
+//       "tabs": ["菜单1", "菜单2"],
+//       "by": "style",
+//       "ref": {
+//         "1": "bigPic",
+//         "0": "smallPic",
+//       }
+//     }
+//   ],
+// }
+
 const formSchema = {
-  "title": "单列医生",
-  "description": "单列医生的表单结构设计",
-  "required": [
-    "title",
-    "link"
-  ],
-  "smallPic": [
+  "title":"浮层按钮",
+  "fields":[
     {
-      "field": "doctorIds",
-      "tips": "请在此处添加医生ID"
-    },
-  	{
-      "field": "price",
-      "widget": "TextArea",
-      "tips": "请在此处添加义诊价描述"
+      "field":"content",
+      "name":"模块内容"
     },
     {
-      "field": "isShowPrice",
-      "widget": "Radio",
-      "enum": [
-        ["1", "是否显示价格"],
-      ],
-      "defaultValue": "0",
+      "widget":"Radio",
+      "field":"fontSize",
+      "defaultValue":1,
+      "name":"字体大小",
+      "enum":[
+        [
+          0,
+          "大"
+        ],
+        [
+          1,
+          "中"
+        ],
+        [
+          2,
+          "小"
+        ]
+      ]
+    },
+    {
+      "field":"link",
+      "name":"跳转链接"
+    },
+    {
+      "field":"background",
+      "name":"背景颜色"
     }
-  ],
-  "bigPic": [
-    {
-      "field": "doctorIds",
-      "tips": "请在此处添加医生ID"
-    },
-    {
-      "field": "label",
-      "tips": "请在此处添加标签文案，用逗号隔开。例如xx,xx,xx"
-    },
-    {
-      "field": "consult",
-      "tips": "请在此处添加资讯文案"
-    },
-    {
-      "field": "comment",
-      "tips": "请在此处添加评价文案"
-    },
-    {
-      "field": "price",
-      "widget": "TextArea",
-      "tips": "请在此处添加义诊价描述"
-    },
-    {
-      "field": "isShowPrice",
-      "widget": "Radio",
-      "enum": [
-        ["1", "是否显示价格"],
-      ],
-      "defaultValue": "0",
-    }
-  ],
-  "fields": [
-    {
-      "field": "title",
-      "name": "标题",
-      "max": 10,
-    },
-    {
-      "field": "style",
-      "name": "模块样式",
-      "widget": "Radio",
-      "enum": [
-        ["1", "大图"],
-        ["0", "小图"]
-      ],
-      "defaultValue": "0",
-    },
-    {
-      "field": "link",
-      "name": "跳转页面",
-      "widget": "Select",
-      "enum": [
-        ["https://www.baidu.com", "医生主页"],
-        ["https://www.sina.com", "服务中间页"]
-      ],
-      "tips": "请选择跳转到的页面"
-    },
-    {
-      "field": "doctors",
-      "type": "array",
-      "tabs": ["菜单1", "菜单2"],
-      "by": "style",
-      "ref": {
-        "1": "bigPic",
-        "0": "smallPic",
-      }
-    }
-  ],
-}
+  ]
+};
+
+const formData = {"link":"http://www.baidu.com","fontSize":0,"content":"浮层内容","background":"888888"};
 
 render(
-  <AsyncForm formSchema={formSchema} callback={(val: any) => console.log('callback', val)} />, 
+  <AsyncForm 
+    formSchema={formSchema} 
+    formData={formData}
+    callback={(val: any) => console.log('callback', val)} 
+  />, 
   document.querySelector('#root')
 );
 
