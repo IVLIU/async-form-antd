@@ -99,13 +99,23 @@ const formSchema = {
   ],
 }
 
-const formData = {"title":"单列医生","style":"0","link":"https://www.sina.com","doctors":[[{"isShowPrice":"0","price":"描述1","doctorIds":"1234123"},{"isShowPrice":"1","price":"描述2","doctorIds":"1342422"}]]};
+const formData = {
+  "title": "单列医生",
+  "style": "0",
+  "link": "https://www.sina.com",
+  "doctors":[
+    [
+      {"isShowPrice":"0","price":"描述1","doctorIds":"1234123"},
+      {"isShowPrice":"1","price":"描述2","doctorIds":"1342422"}
+    ]
+  ]
+};
 
 render(
   <AsyncForm 
     formSchema={formSchema} 
     formData={formData}
-    callback={(val: any) => console.log('callback', JSON.stringify(val))} 
+    callback={(val: any) => console.log('callback', val)} 
   />, 
   document.querySelector('#root')
 );

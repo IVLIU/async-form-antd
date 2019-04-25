@@ -27,8 +27,21 @@ const AsyncForm: FC<IProps> = (props) => {
   useEffect(() => {
     if(formatOfArrayType.length>0) {
       if(formatOfArrayType.length === 1) {
-       setRenderOfArrayType(formData[formatOfArrayType[0]])
-       return;
+        if(Object.keys(formData).length>0) {
+          const currentArrayTypeData = formData[formatOfArrayType[0]];
+          if(Array.isArray(currentArrayTypeData)) {
+            const renderOfArrayTypeFromFormData = currentArrayTypeData.reduce((prev, current) => {
+              let currentTabArrayTypeData = [];
+              if(Array.isArray(current)) {
+                currentTabArrayTypeData = current.reduce((prev, _, idx) => {
+                  return [...prev, { idx }];
+                }, []);
+              }
+              return [...prev, currentTabArrayTypeData];
+            }, []);
+            setRenderOfArrayType(renderOfArrayTypeFromFormData);
+          }
+        }
       }
     }
   }, [formatOfArrayType])
@@ -150,20 +163,12 @@ const AsyncForm: FC<IProps> = (props) => {
     currentTabKeyRef.current = +cKey;
   }
   const handleArrayItemAdd: () => void = () => {
-    /** TODO: 把数组数据的初始值放在这里 */
-    // const $refVal = formSchema[byRef.current];
-    // if($refVal) {
-    //   initialArrayObj = $refVal.reduce((prev: any, current: IField) => {
-    //     const { field } = current
-    //     return {...prev, [field]: ''};
-    //   }, {})
-    // }
-    const initialArrayObj = {};
     const renderOfArrayTypeClone = _.cloneDeep(renderOfArrayType);
     const currentTabKey = currentTabKeyRef.current;
     if(!renderOfArrayTypeClone[currentTabKey]) {
       renderOfArrayTypeClone[currentTabKey] = [];
     }
+    const initialArrayObj = { idx: renderOfArrayTypeClone[currentTabKey].length};
     renderOfArrayTypeClone[currentTabKey].push(initialArrayObj);
     setRenderOfArrayType(renderOfArrayTypeClone);
   }
@@ -213,7 +218,7 @@ const AsyncForm: FC<IProps> = (props) => {
     }
     if(type && type === "array") {
       if(formatOfArrayType.length>0) {
-        initialValue = renderOfArrayType[tIdx as number][aIdx as number][field];
+        initialValue = formData[formatOfArrayType[0]][tIdx as number][aIdx as number][field];
       }
     }
     baseOpt.initialValue = initialValue;
@@ -327,7 +332,7 @@ const AsyncForm: FC<IProps> = (props) => {
                     </FormItem>
                   ) : (
                     <>
-                      {renderOfArrayType[0] && renderOfArrayType[0].map((_, idxOfRenderArrayType) => {
+                      {renderOfArrayType[0] && renderOfArrayType[0].map((aItem, idxOfRenderArrayType) => {
                         const { by, ref: $ref } = f;
                         let byVal: string = '';
                         let $refVal: string = '';
@@ -348,7 +353,7 @@ const AsyncForm: FC<IProps> = (props) => {
                                 handleFormRender(
                                   formSchema[$refVal],
                                   true, 
-                                  {tabIdx: 0, arrayIdx: idxOfRenderArrayType, superField: field}
+                                  {tabIdx: 0, arrayIdx: aItem.idx, superField: field}
                                 )
                               )}
                               <div className="af-operation">
