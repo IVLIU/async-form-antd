@@ -1,5 +1,5 @@
-import React, { FC, FormEvent, ChangeEvent, MouseEvent, useState, useRef } from 'react';
-import { Form, Button, Icon, Tabs, Input } from 'antd';
+import React, { FC, FormEvent, ChangeEvent, MouseEvent, useState, useRef, useEffect } from 'react';
+import { Form, Button, Icon, Tabs, Input, Divider } from 'antd';
 import _ from 'lodash';
 import renderAntd from './utils/renderAntd';
 import { IProps, IField, IFormItemOption } from './AsyncForm.interface';
@@ -23,6 +23,15 @@ const AsyncForm: FC<IProps> = (props) => {
   const formatRef = useRef<((currentKey: string) => void) | null>(null);
   const byRef = useRef<string>('');
   const currentTabKeyRef = useRef<number>(0);
+  // effects
+  useEffect(() => {
+    if(formatOfArrayType.length>0) {
+      if(formatOfArrayType.length === 1) {
+       setRenderOfArrayType(formData[formatOfArrayType[0]])
+       return;
+      }
+    }
+  }, [formatOfArrayType])
   // render empty fields
   if(!fields || fields.length === 0) {
     return (
@@ -158,6 +167,12 @@ const AsyncForm: FC<IProps> = (props) => {
     renderOfArrayTypeClone[currentTabKey].push(initialArrayObj);
     setRenderOfArrayType(renderOfArrayTypeClone);
   }
+  const handleArrayItemUp:(upIdx: number) => void = (uIdx) => {
+    console.log('up', uIdx);
+  }
+  const handleArrayItemDowm:(downIdx: number) => void = (dIdx) => {
+    console.log('down', dIdx);
+  }
   const handleArrayItemDelete : (deleteIdx: number) => void = (dIdx) => {
     const renderOfArrayTypeClone = _.cloneDeep(renderOfArrayType);
     const currentTabKey = currentTabKeyRef.current;
@@ -171,7 +186,7 @@ const AsyncForm: FC<IProps> = (props) => {
     renderOfArrayTypeClone[currentTabKey] = [...left, ...right];
     setRenderOfArrayType(renderOfArrayTypeClone);
   }
-  const handleFormItemOptionFormat: (field: IField) => IFormItemOption = (f) => {
+  const handleFormItemOptionFormat: (field: IField, currentFormItemField: string, tabIndex?: number, arrayIndex?: number, type?: string) => IFormItemOption = (f, cField, tIdx, aIdx, type) => {
     const { field, defaultValue } = f;
     const { required } = formSchema;
     let initialValue: undefined | string = undefined;
@@ -181,8 +196,14 @@ const AsyncForm: FC<IProps> = (props) => {
     if(defaultValue) {
       initialValue = defaultValue;
     }
-    if(formData[field]) {
-      initialValue = formData[field];
+    if(formData[cField]) {
+      initialValue = formData[cField];
+    }
+    if(type && type === "array") {
+      if(formatOfArrayType.length>0) {
+        const currentSuperField = formatOfArrayType[0];
+        initialValue = formData[currentSuperField][tIdx as number][aIdx as number][field]
+      }
     }
     baseOpt.initialValue = initialValue;
     if(required && required.indexOf(field) !== -1) {
@@ -206,6 +227,7 @@ const AsyncForm: FC<IProps> = (props) => {
             field, name, type, tabs,
           } = f;
           let formItemField = field;
+          let formItemFieldOption = handleFormItemOptionFormat(f, formItemField);
           if(type === "array") {
             if(!isShowButton) {
               setIsShowButton(true);
@@ -308,7 +330,10 @@ const AsyncForm: FC<IProps> = (props) => {
                                 )
                               )}
                               <div className="af-operation">
-                                {/** TODO: 上移下移 */}
+                                <Icon type="arrow-up" onClick={() => handleArrayItemUp(idxOfRenderArrayType)} />
+                                <Divider type="vertical" />
+                                <Icon type="arrow-down" onClick={() => handleArrayItemDowm(idxOfRenderArrayType)} />
+                                <Divider type="vertical" />
                                 <Icon type="delete" onClick={() => handleArrayItemDelete(idxOfRenderArrayType)} />
                               </div>
                             </div>
@@ -324,10 +349,11 @@ const AsyncForm: FC<IProps> = (props) => {
           if(aType) {
             const { tabIdx, arrayIdx, superField} = atOpt;
             formItemField = `${superField}_${formItemField}_${tabIdx}[${arrayIdx}]`;
+            formItemFieldOption = handleFormItemOptionFormat(f, formItemField, tabIdx, arrayIdx, "array");
           }
           return (
             <FormItem key={idx} label={name} {...formItemLayout}>
-              {getFieldDecorator(formItemField, handleFormItemOptionFormat(f))(
+              {getFieldDecorator(formItemField, formItemFieldOption)(
                 renderAntd(f)
               )}
             </FormItem>
