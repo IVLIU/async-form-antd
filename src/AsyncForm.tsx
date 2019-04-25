@@ -168,10 +168,22 @@ const AsyncForm: FC<IProps> = (props) => {
     setRenderOfArrayType(renderOfArrayTypeClone);
   }
   const handleArrayItemUp:(upIdx: number) => void = (uIdx) => {
-    console.log('up', uIdx);
+    const renderOfArrayTypeClone = _.cloneDeep(renderOfArrayType);
+    const currentTabrenderOfArrayType = renderOfArrayTypeClone[currentTabKeyRef.current];
+    const temporaryArrayTypeItem = currentTabrenderOfArrayType[uIdx];
+    currentTabrenderOfArrayType[uIdx] = currentTabrenderOfArrayType[uIdx-1];
+    currentTabrenderOfArrayType[uIdx-1] = temporaryArrayTypeItem;
+    renderOfArrayTypeClone[currentTabKeyRef.current] = currentTabrenderOfArrayType;
+    setRenderOfArrayType(renderOfArrayTypeClone);
   }
   const handleArrayItemDowm:(downIdx: number) => void = (dIdx) => {
-    console.log('down', dIdx);
+    const renderOfArrayTypeClone = _.cloneDeep(renderOfArrayType);
+    const currentTabrenderOfArrayType = renderOfArrayTypeClone[currentTabKeyRef.current];
+    const temporaryArrayTypeItem = currentTabrenderOfArrayType[dIdx];
+    currentTabrenderOfArrayType[dIdx] = currentTabrenderOfArrayType[dIdx+1];
+    currentTabrenderOfArrayType[dIdx+1] = temporaryArrayTypeItem;
+    renderOfArrayTypeClone[currentTabKeyRef.current] = currentTabrenderOfArrayType;
+    setRenderOfArrayType(renderOfArrayTypeClone);
   }
   const handleArrayItemDelete : (deleteIdx: number) => void = (dIdx) => {
     const renderOfArrayTypeClone = _.cloneDeep(renderOfArrayType);
@@ -201,8 +213,7 @@ const AsyncForm: FC<IProps> = (props) => {
     }
     if(type && type === "array") {
       if(formatOfArrayType.length>0) {
-        const currentSuperField = formatOfArrayType[0];
-        initialValue = formData[currentSuperField][tIdx as number][aIdx as number][field]
+        initialValue = renderOfArrayType[tIdx as number][aIdx as number][field];
       }
     }
     baseOpt.initialValue = initialValue;
@@ -289,7 +300,18 @@ const AsyncForm: FC<IProps> = (props) => {
                                         )
                                       )}
                                       <div className="af-operation">
-                                        {/** TODO: 上移下移 */}
+                                        {idxOfRenderArrayType>0 && (
+                                          <>
+                                            <Icon type="arrow-up" onClick={() => handleArrayItemUp(idxOfRenderArrayType)} />
+                                            <Divider type="vertical" />
+                                          </>
+                                        )}
+                                        {idxOfRenderArrayType<renderOfArrayType[currentTabKeyRef.current].length-1 && (
+                                          <>
+                                            <Icon type="arrow-down" onClick={() => handleArrayItemDowm(idxOfRenderArrayType)} />
+                                            <Divider type="vertical" />
+                                          </>
+                                        )}
                                         <Icon type="delete" onClick={() => handleArrayItemDelete(idxOfRenderArrayType)} />
                                       </div>
                                     </div>
@@ -330,10 +352,18 @@ const AsyncForm: FC<IProps> = (props) => {
                                 )
                               )}
                               <div className="af-operation">
-                                <Icon type="arrow-up" onClick={() => handleArrayItemUp(idxOfRenderArrayType)} />
-                                <Divider type="vertical" />
-                                <Icon type="arrow-down" onClick={() => handleArrayItemDowm(idxOfRenderArrayType)} />
-                                <Divider type="vertical" />
+                                {idxOfRenderArrayType>0 && (
+                                  <>
+                                    <Icon type="arrow-up" onClick={() => handleArrayItemUp(idxOfRenderArrayType)} />
+                                    <Divider type="vertical" />
+                                  </>
+                                )}
+                                {idxOfRenderArrayType<renderOfArrayType[0].length-1 && (
+                                  <>
+                                    <Icon type="arrow-down" onClick={() => handleArrayItemDowm(idxOfRenderArrayType)} />
+                                    <Divider type="vertical" />
+                                  </>
+                                )}
                                 <Icon type="delete" onClick={() => handleArrayItemDelete(idxOfRenderArrayType)} />
                               </div>
                             </div>
