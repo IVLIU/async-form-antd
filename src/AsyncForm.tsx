@@ -16,6 +16,7 @@ const AsyncForm: FC<IProps> = (props) => {
   // state
   const [ isShowButton, setIsShowButton ] = useState<boolean>(false);
   const [ isTabEdit, setIsTabEdit ] = useState<boolean>(false);
+  const [ isHaveFormData, setIsHaveFormData ] = useState<boolean>(false);
   const [ renderOfArrayType, setRenderOfArrayType ] = useState<any[][]>([]);
   const [ formatOfArrayType, setFormatOfArrayType ] = useState<string[]>([]);
   const [ tabsFromFormSchema, setTabsFromFormSchema ] = useState<string[]>([]);
@@ -40,6 +41,7 @@ const AsyncForm: FC<IProps> = (props) => {
               return [...prev, currentTabArrayTypeData];
             }, []);
             setRenderOfArrayType(renderOfArrayTypeFromFormData);
+            setIsHaveFormData(true);
           }
         }
       }
@@ -213,12 +215,18 @@ const AsyncForm: FC<IProps> = (props) => {
     if(defaultValue) {
       initialValue = defaultValue;
     }
-    if(formData[cField]) {
+    if(formData[cField] && isHaveFormData) {
       initialValue = formData[cField];
     }
-    if(type && type === "array") {
+    if(type && type === "array" && isHaveFormData) {
       if(formatOfArrayType.length>0) {
-        initialValue = formData[formatOfArrayType[0]][tIdx as number][aIdx as number][field];
+        const currentTabFormData = formData[formatOfArrayType[0]][tIdx as number];
+        if(currentTabFormData) {
+          const currentFromData = currentTabFormData[aIdx as number];
+          if(currentFromData) {
+            initialValue = currentFromData[field];
+          }
+        }
       }
     }
     baseOpt.initialValue = initialValue;
