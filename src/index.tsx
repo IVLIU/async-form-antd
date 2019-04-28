@@ -90,6 +90,7 @@ const formSchema = {
     {
       "field": "doctors",
       "type": "array",
+      "tabs": ["菜单1", "菜单2"],
       "by": "style",
       "ref": {
         "1": "bigPic",
@@ -100,15 +101,15 @@ const formSchema = {
 }
 
 const formData = {
-  "title": "单列医生",
-  "style": "0",
-  "link": "https://www.sina.com",
-  "doctors":[
-    [
-      {"isShowPrice":"0","price":"描述1","doctorIds":"1234123"},
-      {"isShowPrice":"1","price":"描述2","doctorIds":"1342422"}
-    ]
-  ]
+  // "title": "单列医生",
+  // "style": "0",
+  // "link": "https://www.sina.com",
+  // "doctors":[
+  //   [
+  //     {"isShowPrice":"0","price":"描述1","doctorIds":"1234123"},
+  //     {"isShowPrice":"1","price":"描述2","doctorIds":"1342422"}
+  //   ]
+  // ]
 };
 
 render(

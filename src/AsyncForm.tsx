@@ -61,8 +61,7 @@ const AsyncForm: FC<IProps> = (props) => {
     labelCol: { span: 4 },
   };
   const formTailLayout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 8, offset: 4 },
+    wrapperCol: { offset: 4 },
   };
   // function definition
   const handleTabStatusEdit: () => void = () => {
