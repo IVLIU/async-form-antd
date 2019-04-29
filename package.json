@@ -1,6 +1,6 @@
 {
   "name": "@ivliu/async-form-antd",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "main": "src/AsyncForm.tsx",
   "author": {
     "name": "IVLIU"
@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git@github.com:IVLIU/async-form-antd.git"
   },
-  "description": "定义formSchema表单解构，根据此来渲染表单，目前主要是满足公司需求，希望各位大佬可以不吝拓展",
+  "description": "通过自定义的formSchema结构，自动生成表单",
   "dependencies": {
     "@types/jest": "24.0.11",
     "@types/lodash": "^4.14.123",

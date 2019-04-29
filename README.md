@@ -1,8 +1,40 @@
 #### API
 
+1. formSchema: object
+```js
+{
+  "title": "normal",
+  "description": "desc",
+  "fields": [
+    {
+      "field": "username",
+      "name": "用户名",
+    },
+    {
+      "field": "password",
+      "name": "密码",
+    },
+  ]
+}
+```
+
+2. formDate: object
+```js
+  {
+    "username": "ivliu",
+    "password": "123456"
+  }
+```
+
+3. callback: (val: any) => void
+回调函数，其中val参数是要提交的值
+
+4. submitTxt: string
+提交按钮的文案
+
 #### 说明
 
-这是模块化编辑器，单列医生模块的formSchema的结构设计，下面以此为基础介绍每个字段的意义以及取值。
+下面介绍每个字段的意义以及取值。
 
 1. title   (string)   标题
 2. description   (string)   描述
@@ -23,9 +55,9 @@
 5. enum   (array)   枚举值，一般配合Select，Radio或者CheckBox使用，数组项是数组
    1. 数组的第一项是对应的提交值，第二项是相应的UI文案
 6. tips   (string)   自定义文案提示，多用于palaceholder
-7. tabs: (array)    支持tab切换设置数组类型的field
+7. tabs: (array)    支持tab切换设置数组类型的field, type是array时应用
 8. by   (string)   如果有依赖，定义依赖的field
-9. $ref   (string | array)   自定义形状，一般用于数组项的自定义，数组项可以是字符串或者数组
+9. ref   (string | array)   自定义形状，一般用于数组项的自定义，数组项可以是字符串或者数组
    1. 字符串：对应的ref值
    2. 数组：用于有前后依赖时
 10. defaultValue   (string | array | number | boolean | object)   默认值
@@ -36,3 +68,5 @@
 
 
 * 表示有待调整
+
+#### Demo（待完善）

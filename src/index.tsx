@@ -5,107 +5,24 @@ import AsyncForm from './AsyncForm';
 import * as serviceWorker from './serviceWorker';
 
 const formSchema = {
-  "title": "单列医生",
-  "description": "单列医生的表单结构设计",
-  "required": [
-    "title",
-    "link"
-  ],
-  "smallPic": [
-    {
-      "field": "doctorIds",
-      "tips": "请在此处添加医生ID"
-    },
-  	{
-      "field": "price",
-      "widget": "TextArea",
-      "tips": "请在此处添加义诊价描述"
-    }
-  ],
-  "bigPic": [
-    {
-      "field": "doctorIds",
-      "tips": "请在此处添加医生ID"
-    },
-    {
-      "field": "label",
-      "tips": "请在此处添加标签文案，用逗号隔开。例如xx,xx,xx"
-    },
-    {
-      "field": "consult",
-      "tips": "请在此处添加资讯文案"
-    },
-    {
-      "field": "comment",
-      "tips": "请在此处添加评价文案"
-    },
-    {
-      "field": "price",
-      "widget": "TextArea",
-      "tips": "请在此处添加义诊价描述"
-    }
-  ],
+  "title": "normal",
+  "description": "desc",
   "fields": [
     {
-      "field": "title",
-      "name": "标题",
-      "max": 10,
+      "field": "username",
+      "name": "用户名",
     },
     {
-      "field": "style",
-      "name": "模块样式",
-      "widget": "Radio",
-      "enum": [
-        ["1", "大图"],
-        ["0", "小图"]
-      ],
-      "defaultValue": "0",
+      "field": "password",
+      "name": "密码",
     },
-    {
-      "field": "isShowPrice",
-      "name": "展示价格",
-      "widget": "Radio",
-      "enum": [
-        ["1", "是"],
-        ["0", "否"],
-      ],
-      "defaultValue": "0",
-    },
-    {
-      "field": "link",
-      "name": "跳转页面",
-      "widget": "Select",
-      "enum": [
-        ["https://www.baidu.com", "医生主页"],
-        ["https://www.sina.com", "服务中间页"]
-      ],
-      "tips": "请选择跳转到的页面"
-    },
-    {
-      "field": "doctors",
-      "type": "array",
-      "tabs": ["菜单1", "菜单2"],
-      "by": "style",
-      "ref": {
-        "1": "bigPic",
-        "0": "smallPic",
-      }
-    }
-  ],
+  ]
 }
 
 const formData = {
-  "title": "单列医生",
-  "style": "0",
-  "link": "https://www.sina.com",
-  "tabs": ["妇产科", "儿科"],
-  "doctors":[
-    [
-      {"isShowPrice":"0","price":"描述1","doctorIds":"1234123"},
-      {"isShowPrice":"1","price":"描述2","doctorIds":"1342422"}
-    ]
-  ]
-};
+  "username": "ivliu",
+  "password": "123456"
+}
 
 render(
   <AsyncForm 

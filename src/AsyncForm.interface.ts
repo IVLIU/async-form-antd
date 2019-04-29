@@ -35,5 +35,6 @@ export interface IProps extends FormComponentProps {
   formSchema: IFormSchema;
   callback: (data: any) => void;
   formData?: any;
+  submitTxt?: string;
   [key: string]: any;
 }

@@ -10,7 +10,7 @@ const { TabPane } = Tabs;
 
 const AsyncForm: FC<IProps> = (props) => {
   // props
-  const { formSchema, formData, form, callback } = props;
+  const { formSchema, formData, form, callback, submitTxt } = props;
   const { fields } = formSchema;
   const { getFieldDecorator, validateFields, getFieldValue } = form;
   // state
@@ -26,9 +26,9 @@ const AsyncForm: FC<IProps> = (props) => {
   const currentTabKeyRef = useRef<number>(0);
   // effects
   useEffect(() => {
-    if(formatOfArrayType.length>0) {
-      if(formatOfArrayType.length === 1) {
-        if(Object.keys(formData).length>0) {
+    if(Object.keys(formData).length>0) {
+      if(formatOfArrayType.length>0) {
+        if(formatOfArrayType.length === 1) {
           const currentArrayTypeData = formData[formatOfArrayType[0]];
           const currentTabsData = formData.tabs;
           if(Array.isArray(currentArrayTypeData)) {
@@ -42,13 +42,13 @@ const AsyncForm: FC<IProps> = (props) => {
               return [...prev, currentTabArrayTypeData];
             }, []);
             setRenderOfArrayType(renderOfArrayTypeFromFormData);
-            setIsHaveFormData(true);
           }
           if(currentTabsData) {
             setTabsFromFormSchema(currentTabsData);
           }
         }
       }
+      setIsHaveFormData(true);
     }
   }, [formatOfArrayType])
   // render empty fields
@@ -416,7 +416,7 @@ const AsyncForm: FC<IProps> = (props) => {
         {handleFormRender(fields)}
         <FormItem {...formTailLayout}>
           {isShowButton && <Button className="af-add__button" onClick={handleArrayItemAdd}>添加模块</Button>}
-          <Button type="primary" htmlType="submit">保存模块</Button>
+          <Button type="primary" htmlType="submit">{submitTxt || "提交"}</Button>
         </FormItem>
       </Form>
     </div>
