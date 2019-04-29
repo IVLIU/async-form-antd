@@ -20,14 +20,6 @@ const formSchema = {
       "field": "price",
       "widget": "TextArea",
       "tips": "请在此处添加义诊价描述"
-    },
-    {
-      "field": "isShowPrice",
-      "widget": "Radio",
-      "enum": [
-        ["1", "是否显示价格"],
-      ],
-      "defaultValue": "0",
     }
   ],
   "bigPic": [
@@ -51,14 +43,6 @@ const formSchema = {
       "field": "price",
       "widget": "TextArea",
       "tips": "请在此处添加义诊价描述"
-    },
-    {
-      "field": "isShowPrice",
-      "widget": "Radio",
-      "enum": [
-        ["1", "是否显示价格"],
-      ],
-      "defaultValue": "0",
     }
   ],
   "fields": [
@@ -74,6 +58,16 @@ const formSchema = {
       "enum": [
         ["1", "大图"],
         ["0", "小图"]
+      ],
+      "defaultValue": "0",
+    },
+    {
+      "field": "isShowPrice",
+      "name": "展示价格",
+      "widget": "Radio",
+      "enum": [
+        ["1", "是"],
+        ["0", "否"],
       ],
       "defaultValue": "0",
     },
@@ -101,15 +95,16 @@ const formSchema = {
 }
 
 const formData = {
-  // "title": "单列医生",
-  // "style": "0",
-  // "link": "https://www.sina.com",
-  // "doctors":[
-  //   [
-  //     {"isShowPrice":"0","price":"描述1","doctorIds":"1234123"},
-  //     {"isShowPrice":"1","price":"描述2","doctorIds":"1342422"}
-  //   ]
-  // ]
+  "title": "单列医生",
+  "style": "0",
+  "link": "https://www.sina.com",
+  "tabs": ["妇产科", "儿科"],
+  "doctors":[
+    [
+      {"isShowPrice":"0","price":"描述1","doctorIds":"1234123"},
+      {"isShowPrice":"1","price":"描述2","doctorIds":"1342422"}
+    ]
+  ]
 };
 
 render(

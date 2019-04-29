@@ -30,6 +30,7 @@ const AsyncForm: FC<IProps> = (props) => {
       if(formatOfArrayType.length === 1) {
         if(Object.keys(formData).length>0) {
           const currentArrayTypeData = formData[formatOfArrayType[0]];
+          const currentTabsData = formData.tabs;
           if(Array.isArray(currentArrayTypeData)) {
             const renderOfArrayTypeFromFormData = currentArrayTypeData.reduce((prev, current) => {
               let currentTabArrayTypeData = [];
@@ -42,6 +43,9 @@ const AsyncForm: FC<IProps> = (props) => {
             }, []);
             setRenderOfArrayType(renderOfArrayTypeFromFormData);
             setIsHaveFormData(true);
+          }
+          if(currentTabsData) {
+            setTabsFromFormSchema(currentTabsData);
           }
         }
       }
@@ -318,7 +322,7 @@ const AsyncForm: FC<IProps> = (props) => {
                                             <Divider type="vertical" />
                                           </>
                                         )}
-                                        {idxOfRenderArrayType<renderOfArrayType[currentTabKeyRef.current].length-1 && (
+                                        {renderOfArrayType[currentTabKeyRef.current] && idxOfRenderArrayType<renderOfArrayType[currentTabKeyRef.current].length-1 && (
                                           <>
                                             <Icon type="arrow-down" onClick={() => handleArrayItemDowm(idxOfRenderArrayType)} />
                                             <Divider type="vertical" />
@@ -370,7 +374,7 @@ const AsyncForm: FC<IProps> = (props) => {
                                     <Divider type="vertical" />
                                   </>
                                 )}
-                                {idxOfRenderArrayType<renderOfArrayType[0].length-1 && (
+                                {renderOfArrayType[currentTabKeyRef.current] && idxOfRenderArrayType<renderOfArrayType[0].length-1 && (
                                   <>
                                     <Icon type="arrow-down" onClick={() => handleArrayItemDowm(idxOfRenderArrayType)} />
                                     <Divider type="vertical" />
