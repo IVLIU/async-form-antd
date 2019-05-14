@@ -56,7 +56,7 @@ const AsyncForm: FC<IProps> = (props) => {
     return (
       <div className="af-empty__wrapper">
         <Icon type="frown" />
-        <p>something bad happened.</p>
+        {/* <p>something bad happened.</p> */}
       </div>
     )
   }
