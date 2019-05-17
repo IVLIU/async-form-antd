@@ -5,49 +5,118 @@ import AsyncForm from './AsyncForm';
 import * as serviceWorker from './serviceWorker';
 
 const formSchema = {
-  "title":"浮层按钮",
+  "bigPic":[
+    {
+      "field":"doctorIds",
+      "tips":"请在此处添加医生ID"
+    },
+    {
+      "field":"label",
+      "tips":"请在此处添加标签文案，用逗号隔开。例如xx,xx,xx"
+    },
+    {
+      "field":"consult",
+      "tips":"请在此处添加咨询文案"
+    },
+    {
+      "field":"comment",
+      "tips":"请在此处添加好评文案"
+    },
+    {
+      "widget":"TextArea",
+      "field":"price",
+      "tips":"请在此处添加义诊价描述"
+    }
+  ],
+  "description":"多列医生的表单结构设计",
+  "smallPic":[
+    {
+      "field":"doctorIds",
+      "tips":"请在此处添加医生ID"
+    },
+    {
+      "widget":"TextArea",
+      "field":"price",
+      "tips":"请在此处添加义诊价描述"
+    }
+  ],
+  "title":"多列医生",
   "fields":[
     {
-      "field":"content",
-      "name":"模块内容"
+      "field":"title",
+      "max":10,
+      "name":"标题"
     },
     {
       "widget":"Radio",
-      "field":"fontSize",
-      "defaultValue":1,
-      "name":"字体大小",
+      "field":"style",
+      "defaultValue":"0",
+      "name":"模块样式",
       "enum":[
         [
-          0,
-          "大"
+          "1",
+          "大图"
         ],
         [
-          1,
-          "中"
-        ],
-        [
-          2,
-          "小"
+          "0",
+          "小图"
         ]
       ]
     },
     {
-      "field":"link",
-      "name":"跳转链接"
+      "widget":"Radio",
+      "field":"isShowPrice",
+      "defaultValue":"0",
+      "name":"显示价格",
+      "enum":[
+        [
+          "1",
+          "是"
+        ],
+        [
+          "0",
+          "否"
+        ]
+      ]
     },
     {
-      "field":"background",
-      "name":"背景颜色"
+      "widget":"Select",
+      "field":"link",
+      "name":"跳转页面",
+      "enum":[
+        [
+          "1",
+          "医生主页"
+        ],
+        [
+          "2",
+          "服务中间页"
+        ]
+      ],
+      "tips":"请选择跳转到的页面"
+    },
+    {
+      "ref":{
+        "0":"smallPic",
+        "1":"bigPic"
+      },
+      "field":"doctors",
+      "by":"style",
+      "tabs":[
+        "菜单1",
+        "菜单2"
+      ],
+      "type":"array"
     }
+  ],
+  "required":[
+    "title",
+    "link"
   ]
-}
+};
 
 const formData ={
-  "background":"666",
-  "link":"http://www.sina.com",
-  "fontSize":1,
-  "title":"浮层模块1557909243805",
-  "content":"浮层颜色测试"
+ 
 }
 
 render(

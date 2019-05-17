@@ -291,7 +291,7 @@ const AsyncForm: FC<IProps> = (props) => {
                           }
                           return (
                             <TabPane key={`${idxOfTab}`} tab={currentTab}>
-                              {renderOfArrayType[idxOfTab] ? renderOfArrayType[idxOfTab] && Array.isArray(renderOfArrayType[idxOfTab]) && renderOfArrayType[idxOfTab].map((_, idxOfRenderArrayType) => {
+                              {renderOfArrayType[idxOfTab] ? renderOfArrayType[idxOfTab] && Array.isArray(renderOfArrayType[idxOfTab]) && renderOfArrayType[idxOfTab].map((aItem, idxOfRenderArrayType) => {
                                 const { by, ref: $ref } = f;
                                 let byVal: string = '';
                                 let $refVal: string = '';
@@ -312,7 +312,7 @@ const AsyncForm: FC<IProps> = (props) => {
                                         handleFormRender(
                                           formSchema[$refVal],  
                                           true, 
-                                          {tabIdx: idxOfTab, arrayIdx: idxOfRenderArrayType, superField: field}
+                                          {tabIdx: idxOfTab, arrayIdx: aItem.idx, superField: field}
                                         )
                                       )}
                                       <div className="af-operation">
