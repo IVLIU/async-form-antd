@@ -245,7 +245,7 @@ const AsyncForm: FC<IProps> = (props) => {
       }
     }
     baseOpt.initialValue = initialValue;
-    if(required && (required.indexOf(field) !== -1 || required.indexOf(`ref_${field}`) !== -1)) {
+    if(required && required.indexOf(field) !== -1) {
       baseOpt.rules.push({
         required: true,
         message: `${name || '该字段'}不能为空`,
