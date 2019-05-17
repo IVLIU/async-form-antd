@@ -111,7 +111,8 @@ const formSchema = {
   ],
   "required":[
     "title",
-    "link"
+    "link",
+    "ref_doctorIds",
   ]
 };
 

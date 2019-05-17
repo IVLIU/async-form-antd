@@ -26,6 +26,17 @@ const AsyncForm: FC<IProps> = (props) => {
   const currentTabKeyRef = useRef<number>(0);
   // effects
   useEffect(() => {
+    const handleEnterDown = (e: KeyboardEvent) => {
+      if(e.keyCode === 13) {
+        e.preventDefault();
+      }
+    };
+    document.addEventListener('keydown',handleEnterDown);
+    () => {
+      document.removeEventListener('keydown', handleEnterDown)
+    }
+  }, []) 
+  useEffect(() => {
     if(Object.keys(formData).length>0) {
       if(formatOfArrayType.length>0) {
         if(formatOfArrayType.length === 1) {
@@ -63,6 +74,7 @@ const AsyncForm: FC<IProps> = (props) => {
   // antd
   const formItemLayout = {
     labelCol: { span: 4 },
+    // wrapperCol: { span: 8 },
   };
   const formTailLayout = {
     wrapperCol: { offset: 4 },
@@ -209,7 +221,7 @@ const AsyncForm: FC<IProps> = (props) => {
     setRenderOfArrayType(renderOfArrayTypeClone);
   }
   const handleFormItemOptionFormat: (field: IField, currentFormItemField: string, tabIndex?: number, arrayIndex?: number, type?: string) => IFormItemOption = (f, cField, tIdx, aIdx, type) => {
-    const { field, defaultValue } = f;
+    const { field, name, defaultValue } = f;
     const { required } = formSchema;
     let initialValue: undefined | string = undefined;
     const baseOpt: IFormItemOption = {
@@ -233,8 +245,11 @@ const AsyncForm: FC<IProps> = (props) => {
       }
     }
     baseOpt.initialValue = initialValue;
-    if(required && required.indexOf(field) !== -1) {
-      baseOpt.rules.push({required: true});
+    if(required && (required.indexOf(field) !== -1 || required.indexOf(`ref_${field}`) !== -1)) {
+      baseOpt.rules.push({
+        required: true,
+        message: `${name || '该字段'}不能为空`,
+      });
     }
     return baseOpt;
   }
@@ -267,7 +282,7 @@ const AsyncForm: FC<IProps> = (props) => {
               setTabsFromFormSchema(tabs);
             }
             return (
-              <div key={idx}>
+              <div className="af-array__wrapper" key={idx}>
                 <div>
                   {tabsFromFormSchema.length>0 ? (
                     <FormItem key="tabs" {...formTailLayout}>
