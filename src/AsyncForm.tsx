@@ -1,5 +1,5 @@
 import React, { FC, FormEvent, ChangeEvent, MouseEvent, useState, useRef, useEffect } from 'react';
-import { Form, Button, Icon, Tabs, Input, Divider } from 'antd';
+import { Form, Button, Icon, Tabs, Input, Divider, Modal } from 'antd';
 import _ from 'lodash';
 import renderAntd from './utils/renderAntd';
 import { IProps, IField, IFormItemOption } from './AsyncForm.interface';
@@ -95,10 +95,22 @@ const AsyncForm: FC<IProps> = (props) => {
       setTabsFromFormSchema(tabsFromFormSchemaClone);
       return;
     }
-    if(tabsFromFormSchemaClone.length>1 && action === "remove") {
-      const leftTabs = tabsFromFormSchemaClone.slice(0, +targetKey);
-      const rightTabs = tabsFromFormSchemaClone.slice(+targetKey+1);
-      setTabsFromFormSchema([...leftTabs, ...rightTabs]);
+    if(tabsFromFormSchemaClone.length>2 && action === "remove") {
+      Modal.confirm({
+        title: '删除确认',
+        content: '是否删除该项？',
+        okText: "确定",
+        cancelText: '取消',
+        onOk: () => {
+          const renderOfArrayTypeClone = _.cloneDeep(renderOfArrayType);
+          const leftRenderOfArrayType = renderOfArrayTypeClone.slice(0, +targetKey);
+          const rightRenderOfArrayType = renderOfArrayTypeClone.slice(+targetKey+1);
+          const leftTabs = tabsFromFormSchemaClone.slice(0, +targetKey);
+          const rightTabs = tabsFromFormSchemaClone.slice(+targetKey+1);
+          setTabsFromFormSchema([...leftTabs, ...rightTabs]);
+          setRenderOfArrayType([...leftRenderOfArrayType, ...rightRenderOfArrayType]);
+        }
+      });
     }
   }
   const handleFormSubmit: (e: FormEvent<any>) => void = (e) => {
@@ -292,6 +304,9 @@ const AsyncForm: FC<IProps> = (props) => {
                         onEdit={handleTabEdit}
                       >
                         {tabsFromFormSchema.map((tab, idxOfTab) => {
+                          if(tab.length===0) {
+                            return null;
+                          }
                           let currentTab = <span onDoubleClick={handleTabStatusEdit}>{tab}</span>
                           if(currentTabKeyRef.current === idxOfTab && isTabEdit) {
                             currentTab = (

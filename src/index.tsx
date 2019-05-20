@@ -103,8 +103,15 @@ const formSchema = {
       "field":"doctors",
       "by":"style",
       "tabs":[
-        "菜单1",
-        "菜单2"
+        // {
+        //   "title": "菜单1",
+        //   "key": "1",
+        // },
+        // {
+        //   "title": "菜单2",
+        //   "key": "2",
+        // },
+        '菜单1', '菜单2'
       ],
       "type":"array"
     }

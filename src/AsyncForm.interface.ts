@@ -22,7 +22,7 @@ export interface IField {
   tips?: string;
   tabs?: string[];
   by?: string;
-  $ref?: string | {[key: string]: string};
+  ref?: string | {[key: string]: string};
   [key: string]: any;
 }
 
