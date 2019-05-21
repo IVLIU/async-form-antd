@@ -132,7 +132,7 @@ const AsyncForm: FC<IProps> = (props) => {
           const keysExceptCurrentKey: [string, string][][] = [];
           if(!val[cKey]) {
             val[cKey] = [];
-          } 
+          }
           keys.forEach((k) => {
             if(reg.test(k)) {
               const fieldSet = k.split('_');
@@ -147,13 +147,14 @@ const AsyncForm: FC<IProps> = (props) => {
             }
           })
           renderOfArrayType.forEach((cRenderOfArrayType, idx) => {
-            cRenderOfArrayType.forEach((_, subIdx) => {
+            cRenderOfArrayType.forEach((cAType, cAIdx) => {
+              const { idx: subIdx } = cAType;
               if(!val[cKey][idx]) {
                 val[cKey][idx] = [];
               }
               val[cKey][idx][subIdx] = keysExceptCurrentKey[idx].reduce((prev, current) => {
                 const [k, sk] = current;
-                return {[sk]: val[k][subIdx], ...prev};
+                return {[sk]: val[k][cAIdx], ...prev};
               }, {});
             })
           })
