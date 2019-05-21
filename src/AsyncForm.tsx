@@ -24,6 +24,7 @@ const AsyncForm: FC<IProps> = (props) => {
   const formatRef = useRef<((currentKey: string) => void) | null>(null);
   const byRef = useRef<string>('');
   const currentTabKeyRef = useRef<number>(0);
+  const inputRef = useRef<Input>(null);
   // effects
   useEffect(() => {
     const handleEnterDown = (e: KeyboardEvent) => {
@@ -81,12 +82,12 @@ const AsyncForm: FC<IProps> = (props) => {
   };
   // function definition
   const handleTabStatusEdit: () => void = () => {
-    setIsTabEdit(!isTabEdit);
-  }
-  const handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void = (e) => {
     const tabsFromFormSchemaClone = _.cloneDeep(tabsFromFormSchema);
-    tabsFromFormSchemaClone[currentTabKeyRef.current] = e.target.value;
-    setTabsFromFormSchema(tabsFromFormSchemaClone);
+    if(inputRef.current) {
+      tabsFromFormSchemaClone[currentTabKeyRef.current] = inputRef.current.state.value;
+      setTabsFromFormSchema(tabsFromFormSchemaClone);
+    }
+    setIsTabEdit(!isTabEdit);
   }
   const handleTabEdit: (targetKey: string | MouseEvent<HTMLElement>, action: any) => void = (targetKey, action) => {
     const tabsFromFormSchemaClone = _.cloneDeep(tabsFromFormSchema);
@@ -311,10 +312,10 @@ const AsyncForm: FC<IProps> = (props) => {
                           if(currentTabKeyRef.current === idxOfTab && isTabEdit) {
                             currentTab = (
                               <Input 
+                                ref={inputRef}
                                 autoFocus={true} 
-                                value={tabsFromFormSchema[currentTabKeyRef.current]} 
+                                defaultValue={tab}
                                 onBlur={handleTabStatusEdit} 
-                                onChange={(e) => handleInputChange(e)}
                                 style={{width: 60}} 
                               />
                             )
