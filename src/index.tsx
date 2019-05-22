@@ -123,8 +123,21 @@ const formSchema = {
   ]
 };
 
-const formData ={
- 
+const formData = {
+  "isShowPrice":"0",
+  "doctors":[
+    [
+      {
+        "doctorIds":"81978"
+      },
+      {
+        "doctorIds":"82296"
+      }
+    ]
+  ],
+  "link":"1",
+  "style":"0",
+  "title":"多列医生"
 }
 
 render(
