@@ -136,20 +136,6 @@ const formData = {
       {
         "doctorIds":"8229"
       }
-    ],
-    [
-      {
-        "doctorIds":"123332"
-      },
-      {
-        "doctorIds":"456456"
-      },
-      {
-        "doctorIds":"123332"
-      },
-      {
-        "doctorIds":"456456"
-      }
     ]
   ],
   "link":"1",

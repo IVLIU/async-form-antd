@@ -1,6 +1,6 @@
 {
   "name": "@ivliu/async-form-antd",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "main": "src/AsyncForm.tsx",
   "author": {
     "name": "IVLIU"

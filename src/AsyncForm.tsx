@@ -204,6 +204,9 @@ const AsyncForm: FC<IProps> = (props) => {
     if(!renderOfArrayTypeClone[currentTabKey]) {
       renderOfArrayTypeClone[currentTabKey] = [];
     }
+    if(!renderOfArrayItemKeyRef.current[currentTabKey]) {
+      renderOfArrayItemKeyRef.current[currentTabKey] = 0;
+    }
     const initialArrayObj = { idx: renderOfArrayItemKeyRef.current[currentTabKey]};
     renderOfArrayItemKeyRef.current[currentTabKey] = renderOfArrayItemKeyRef.current[currentTabKey]+1;
     renderOfArrayTypeClone[currentTabKey].push(initialArrayObj);
