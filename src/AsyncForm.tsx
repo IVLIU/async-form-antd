@@ -25,6 +25,7 @@ const AsyncForm: FC<IProps> = (props) => {
   const byRef = useRef<string>('');
   const currentTabKeyRef = useRef<number>(0);
   const inputRef = useRef<Input>(null);
+  const renderOfarrayItemKeyRef = useRef<number>(0);
   // effects
   useEffect(() => {
     const handleEnterDown = (e: KeyboardEvent) => {
@@ -154,9 +155,10 @@ const AsyncForm: FC<IProps> = (props) => {
               }
               val[cKey][idx][subIdx] = keysExceptCurrentKey[idx].reduce((prev, current) => {
                 const [k, sk] = current;
-                return {[sk]: val[k][cAIdx], ...prev};
+                return {[sk]: val[k].filter(Boolean)[cAIdx], ...prev};
               }, {});
             })
+            val[cKey][idx] = val[cKey][idx].filter(Boolean);
           })
           keysExceptCurrentKey.forEach((cKeys) => {
             cKeys.forEach((k) => {
@@ -199,7 +201,8 @@ const AsyncForm: FC<IProps> = (props) => {
     if(!renderOfArrayTypeClone[currentTabKey]) {
       renderOfArrayTypeClone[currentTabKey] = [];
     }
-    const initialArrayObj = { idx: renderOfArrayTypeClone[currentTabKey].length};
+    const initialArrayObj = { idx: renderOfarrayItemKeyRef.current};
+    renderOfarrayItemKeyRef.current = renderOfarrayItemKeyRef.current+1;
     renderOfArrayTypeClone[currentTabKey].push(initialArrayObj);
     setRenderOfArrayType(renderOfArrayTypeClone);
   }
