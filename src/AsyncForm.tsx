@@ -55,7 +55,10 @@ const AsyncForm: FC<IProps> = (props) => {
               return [...prev, currentTabArrayTypeData];
             }, []);
             renderOfArrayItemKeyRef.current = currentArrayTypeData.reduce((prev, current) => {
-              return [...prev, current.length];
+              if(current && Array.isArray(current)) {
+                return [...prev, current.length];
+              }
+              return [...prev, 0];
             }, []);
             setRenderOfArrayType(renderOfArrayTypeFromFormData);
           }
@@ -161,6 +164,9 @@ const AsyncForm: FC<IProps> = (props) => {
                 return {[sk]: val[k].filter(Boolean)[cAIdx], ...prev};
               }, {});
             })
+            if(!val[cKey][idx]) {
+              val[cKey][idx] = [];
+            }
             val[cKey][idx] = val[cKey][idx].filter(Boolean);
           })
           keysExceptCurrentKey.forEach((cKeys) => {
@@ -330,9 +336,12 @@ const AsyncForm: FC<IProps> = (props) => {
                               />
                             )
                           }
+                          if(!renderOfArrayType[idxOfTab]) {
+                            renderOfArrayType[idxOfTab] = []
+                          }
                           return (
                             <TabPane key={`${idxOfTab}`} tab={currentTab}>
-                              {renderOfArrayType[idxOfTab] ? renderOfArrayType[idxOfTab] && Array.isArray(renderOfArrayType[idxOfTab]) && renderOfArrayType[idxOfTab].map((aItem, idxOfRenderArrayType) => {
+                              {renderOfArrayType[idxOfTab].length>0 ? renderOfArrayType[idxOfTab] && Array.isArray(renderOfArrayType[idxOfTab]) && renderOfArrayType[idxOfTab].map((aItem, idxOfRenderArrayType) => {
                                 const { by, ref: $ref } = f;
                                 let byVal: string = '';
                                 let $refVal: string = '';

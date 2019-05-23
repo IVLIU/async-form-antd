@@ -124,23 +124,30 @@ const formSchema = {
 };
 
 const formData = {
-  "isShowPrice":"0",
+  "isShowPrice":"1",
   "doctors":[
+    null,
+    null,
+    null,
+    null,
+    null,
     [
       {
-        "doctorIds":"81978"
-      },
-      {
-        "doctorIds":"82296"
-      },
-      {
-        "doctorIds":"8229"
+        "doctorIds":"87981"
       }
     ]
   ],
-  "link":"1",
-  "style":"0",
-  "title":"多列医生"
+  "link":"2",
+  "tabs":[
+    "妇科",
+    "儿科",
+    "内科",
+    "外科",
+    "皮肤科",
+    "耳鼻喉"
+  ],
+  "style":"1",
+  "title":"主任"
 }
 
 render(
